@@ -23,6 +23,8 @@ rule token = parse
 | '*' { MULT(lexeme lexbuf) }
 | ';' { SEMI(lexeme lexbuf) }
 | '=' { EQ(lexeme lexbuf) }
+| "cos" { COS(lexeme lexbuf) }
+| "sin" { SIN(lexeme lexbuf) }
 | chars+ { VAR(lexeme lexbuf) }
 | eof { RNGLR_EOF ("")}
 | _ {  failwithf "unexpected input: %s" <| string lexeme }

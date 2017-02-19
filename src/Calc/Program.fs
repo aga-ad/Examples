@@ -29,5 +29,5 @@ let execute (code) =
 
     tree.[0]
     
-let tree: result = execute("3+2;")
+let tree: result = execute("(cos (2*2 - 4) + cos 0) ** (cos 0 + cos sin 0 - sin sin 0);")
 printfn "Tree %A" tree

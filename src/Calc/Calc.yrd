@@ -40,6 +40,13 @@ binExpr<operand binOp>: h=operand tl=(binOp operand)* {
    List.fold calcFunc h tl
 }
 
+unaryExpr<arg func>: h=arg tl=(func)* {
+   List.fold calcUnaryFunc h tl
+}
+
+
+
+
 expr: binExpr<term termOp>
 
 termOp: PLUS {Plus} | MINUS {Minus}
@@ -48,12 +55,19 @@ term: binExpr<factor factorOp>
 
 factorOp: MULT {Mult} | DIV {Div}
 
-factor: binExpr<powExpr powOp>
+factor: binExpr<func powOp>
 
 powOp: POW {Pow}
 
-powExpr:
+
+func: unaryExpr<funcExpr funcOp>
+
+funcOp: COS {Cos} | SIN {Sin}
+
+funcExpr:
    n=NUMBER {Num (float n)}
+   | fo=funcOp fe=funcExpr {calcUnaryFunc fe fo}
    | v=VAR {EVar(v)}
    | LBRACE e=expr RBRACE {e}
+
 
